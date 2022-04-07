@@ -1,6 +1,7 @@
 let books = [];
 filteredBooks = [];
-
+let params = new URLSearchParams(window.location.search);
+let asinID = params.get("asin");
 console.log(asinID);
 const fetchData = () => {
   fetch("https://striveschool-api.herokuapp.com/books", { method: "GET" })

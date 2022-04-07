@@ -10,7 +10,6 @@
     <h1>Details:</h1>
 
     <script>
-      let asinID = new URLSearchParams(window.location.search).get("asin");
       fetch("https://striveschool-api.herokuapp.com/books", { method: "GET" })
         .then((response) => response.json())
         .then((data) => {
@@ -21,7 +20,7 @@
           const cardDetails = document.createElement("div");
           cardDetails.classList = "container";
           cardDetails.innerHTML = `
-          <div class="card" ">
+          <div class="card" >
       <img src=${bookDetails[0].img} class="card-img-top" alt="...">
       <div class="card-body">
         <h3 class="card-text"> ${bookDetails[0].title}</h3>
