@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Details:</h1>
+
+    <script>
+      let asinID = new URLSearchParams(window.location.search).get("asin");
+      fetch("https://striveschool-api.herokuapp.com/books", { method: "GET" })
+        .then((response) => response.json())
+        .then((data) => {
+          let bookDetails = data.filter((book) => book.asin === asinID);
+          console.log(asinID);
+          console.log("details: ", bookDetails);
+          let body = document.querySelector("body");
+          const cardDetails = document.createElement("div");
+          cardDetails.classList = "container";
+          cardDetails.innerHTML = `
+          <div class="card" ">
+      <img src=${bookDetails[0].img} class="card-img-top" alt="...">
+      <div class="card-body">
+        <h3 class="card-text"> ${bookDetails[0].title}</h3>
+        <p class="card-text"> ${bookDetails[0].category}</p>
+        <p class="card-text"> ${bookDetails[0].price}</p>
+        <p class="card-text"> ${bookDetails[0].asin}</p>
+      </div>
+    </div>`;
+          body.appendChild(cardDetails);
+        });
+    </script>
+
+    <script src="javascript.js"></script>
+  </body>
+</html>

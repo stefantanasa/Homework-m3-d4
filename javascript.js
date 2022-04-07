@@ -1,6 +1,7 @@
 let books = [];
 filteredBooks = [];
-console.log("books:", books);
+
+console.log(asinID);
 const fetchData = () => {
   fetch("https://striveschool-api.herokuapp.com/books", { method: "GET" })
     .then((response) => response.json())
@@ -17,6 +18,9 @@ added.innerText = "Added";
 const cardItem = document.createElement("li");
 cardItem.classList.add("list-group-item");
 let countBadge = added.cloneNode(true);
+let deleteAllItems = document.createElement("button");
+deleteAllItems.classList.add("btn-danger");
+deleteAllItems.innerText = "Emplty Cart";
 
 // render funciton
 let renderBooks = (arrayData) => {
@@ -29,7 +33,7 @@ let renderBooks = (arrayData) => {
     bookCard.classList.add("card");
     bookCard.style.cssText = "width: 12rem";
     bookCard.innerHTML = `
-        <img src=${book.img} class="card-img-top" alt="...">
+        <a href="details.html?asin=${book.asin}" > <img src=${book.img} class="card-img-top" alt="..."></a>
           <div class="card-body">
           <h5 class="card-title">${book.title}</h5>
           <p class="card-text">Category: ${book.category}</p>
@@ -45,19 +49,22 @@ let renderBooks = (arrayData) => {
 };
 
 // handleres:
+let handleClearCart = () => {
+  addedBooks.innerHTML = "";
+};
 let handleAdd = (event) => {
   //   console.log(event.target.parentNode.firstChild.innerText);
   const toCard = event.target.closest(".card").cloneNode(true);
   event.target.classList = "btn btn-success";
   addedBooks.appendChild(toCard);
-  countBadge.innerText = addedBooks.children.length - 1;
   addedBooks.prepend(countBadge);
+  countBadge.innerText = addedBooks.children.length - 1;
 };
 
 let handleHideBook = (event) => {
   event.target.closest(".card").remove();
-  countBadge.innerText = addedBooks.children.length - 1;
   addedBooks.prepend(countBadge);
+  countBadge.innerText = addedBooks.children.length - 1;
 };
 
 let handleSearch = (event) => {
